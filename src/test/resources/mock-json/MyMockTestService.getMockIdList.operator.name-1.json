@@ -1,0 +1,5 @@
+[
+  <#list userIds as userId>
+  "10000${userId?string('#')}",
+  </#list>
+]

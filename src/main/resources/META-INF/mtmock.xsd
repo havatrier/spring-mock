@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.kevin.com/schema/mtmock"
+        xmlns:tns="http://www.kevin.com/schema/mtmock"
+        elementFormDefault="qualified">
+    <element name="mock">
+        <complexType>
+            <choice minOccurs="1" maxOccurs="unbounded">
+                <element ref="tns:env"/>
+                <element ref="tns:xml-provider" maxOccurs="1"/>
+            </choice>
+
+            <attribute name="id" type="string" default="mtMock"/>
+            <attribute name="proxy-target-class" type="boolean" default="false">
+                <annotation>
+                    <documentation><![CDATA[
+	Are class-based (CGLIB) proxies to be created? By default, standard
+	Java interface-based proxies are created.
+					]]></documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+    <element name="env">
+        <annotation>
+            <documentation><![CDATA[
+            Define environment variable, which can be used in <return> test expression
+            ]]></documentation>
+        </annotation>
+        <complexType>
+            <attribute name="name" type="string" use="required">
+                <annotation>
+                    <documentation><![CDATA[
+                    variable name
+                    ]]></documentation>
+                </annotation>
+            </attribute>
+            <attribute name="value" type="string" use="required">
+                <annotation>
+                    <documentation><![CDATA[
+                    variable value
+                    ]]></documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+    <element name="xml-provider">
+        <annotation>
+            <documentation><![CDATA[
+            XML configuration file mock data provider
+            ]]></documentation>
+        </annotation>
+        <complexType>
+            <attribute name="locations" type="string" use="required">
+                <annotation>
+                    <documentation><![CDATA[
+                    comma separated URIs
+                    ]]></documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+
+</schema>

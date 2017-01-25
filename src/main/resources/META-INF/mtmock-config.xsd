@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.kevin.com/schema/mtmock_cfg"
+        xmlns:tns="http://www.kevin.com/schema/mtmock_cfg"
+        elementFormDefault="qualified">
+    <annotation>
+        <documentation><![CDATA[
+    MtMock Configuration XML schema
+        ]]>
+        </documentation>
+    </annotation>
+    <element name="services">
+        <complexType>
+            <sequence>
+                <element ref="tns:service" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+            <attribute name="id" type="string"/>
+        </complexType>
+    </element>
+
+    <element name="service">
+        <annotation>
+            <documentation><![CDATA[
+        Service mock configuration
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="tns:method" minOccurs="0"/>
+            </sequence>
+            <attribute name="name" type="string">
+                <annotation>
+                    <documentation><![CDATA[
+                    service name
+                    ]]>
+                    </documentation>
+                </annotation>
+            </attribute>
+            <attribute name="type" type="string" use="required">
+                <annotation>
+                    <documentation><![CDATA[
+                    service class type; define which service class to mock
+                    ]]>
+                    </documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+    <element name="method">
+        <annotation>
+            <documentation><![CDATA[
+        Method(api) configuration
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="tns:params" minOccurs="0" maxOccurs="1"/>
+                <element ref="tns:returns" minOccurs="1" maxOccurs="1"/>
+            </sequence>
+            <attribute name="name" type="string" use="required"/>
+        </complexType>
+    </element>
+
+    <element name="params">
+        <annotation>
+            <documentation><![CDATA[
+        Method(api) parameters
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <element ref="tns:param" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+
+    </element>
+
+    <element name="param">
+        <annotation>
+            <documentation><![CDATA[
+        Method param configuration
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType>
+            <choice minOccurs="0">
+                <element ref="tns:type"/>
+            </choice>
+            <attribute name="name" type="string" use="required"/>
+            <attribute name="type" type="string">
+                <annotation>
+                    <documentation><![CDATA[
+                    method parameter type: Java types
+                    ]]>
+                    </documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+    <element name="returns">
+        <annotation>
+            <documentation><![CDATA[
+            mock return groups
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType>
+            <sequence>
+                <choice minOccurs="0">
+                    <element ref="tns:type"/>
+                </choice>
+                <element ref="tns:return" minOccurs="1" maxOccurs="unbounded"/>
+            </sequence>
+            <attribute name="type" type="string">
+                <annotation>
+                    <documentation><![CDATA[
+                    mock return type(Java type)
+                    ]]>
+                    </documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+
+    <element name="type">
+        <annotation>
+            <documentation><![CDATA[
+            mock return type (Java Type)
+            ]]>
+            </documentation>
+        </annotation>
+    </element>
+
+    <element name="return">
+        <annotation>
+            <documentation><![CDATA[
+            mock return definition
+            ]]>
+            </documentation>
+        </annotation>
+        <complexType mixed="true">
+            <complexContent>
+                <restriction base="anyType">
+                    <sequence>
+                        <element ref="tns:value" minOccurs="0"/>
+                    </sequence>
+                    <attribute name="id" type="string">
+                        <annotation>
+                            <documentation><![CDATA[
+                            ReturnMock ID
+                            ]]>
+                            </documentation>
+                        </annotation>
+
+                    </attribute>
+                    <attribute name="resource" type="anyURI">
+                        <annotation>
+                            <documentation><![CDATA[
+                mock data resource file location. E.G. "classpath:mock/price.json"
+                    ]]>
+                            </documentation>
+                        </annotation>
+                    </attribute>
+                    <attribute name="test" type="string">
+                        <annotation>
+                            <documentation><![CDATA[
+                Test expression to define whether this mock return is applicable for the service call.
+                expression is defined using variable names from param name and inherent variables (e.g. clientKey)
+                and comparators (<, <=, ==, >, >=). for example:  clientKey == 'oms'
+                    ]]>
+                            </documentation>
+                        </annotation>
+                    </attribute>
+                </restriction>
+            </complexContent>
+        </complexType>
+    </element>
+
+    <element name="value">
+        <annotation>
+            <documentation><![CDATA[
+            Contains a json string represent moc return value
+            ]]>
+            </documentation>
+        </annotation>
+    </element>
+
+</schema>
