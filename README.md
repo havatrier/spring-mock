@@ -131,4 +131,26 @@ An example xml configuration:
 ```
 
 
+## How to integrated with Spring Framework
+All you have to do is to simply add following spring-mock defined labels to test application context:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mk="http://www.kevin.com/schema/mtmock"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.kevin.com/schema/mtmock  http://www.kevin.com/schema/mtmock.xsd">
+
+    <bean id="MyMockTestService" class="com.kevin.spring.mock.service.MyMockTestService"/>
+    <mk:mock>
+        <mk:env name="clientID" value="kevin"/>
+        <mk:xml-provider locations="classpath:mock.xml"/>
+    </mk:mock>
+</beans>
+```
+
+
 

@@ -9,12 +9,8 @@
        http://www.kevin.com/schema/mtmock  http://www.kevin.com/schema/mtmock.xsd">
 
     <bean id="MyMockTestService" class="com.kevin.spring.mock.service.MyMockTestService"/>
-    <!--mock:mt-mock>
-        <mock:env name="clientID" value="kuailv"/>
-        <mock:xml-provider locations="classpath:mock.xml"/>
-    </mock:mt-mock-->
     <mk:mock>
-        <mk:env name="clientID" value="kuailv"/>
+        <mk:env name="clientID" value="kevin"/>
         <mk:xml-provider locations="classpath:mock.xml"/>
     </mk:mock>
 </beans>
